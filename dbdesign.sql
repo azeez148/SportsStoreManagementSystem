@@ -71,3 +71,15 @@ CREATE TABLE users (
     FOREIGN KEY (store_id) REFERENCES stores(store_id)
     -- Add additional fields as needed
 );
+
+-- Create customers table
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    -- Add additional fields as needed
+);
