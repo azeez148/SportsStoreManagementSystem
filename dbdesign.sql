@@ -1,3 +1,5 @@
+CREATE DATABASE sports_store_management_system;
+
 -- Create stores table
 CREATE TABLE stores (
     store_id INT PRIMARY KEY AUTO_INCREMENT,
