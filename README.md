@@ -195,4 +195,247 @@ This document outlines the initial plan and requirements for a sportswear, footw
 - **Maintainability**
   - The codebase should be well-documented and modular to facilitate maintenance.
 
-This initial plan and requirement document should provide a solid foundation for the development of the sportswear, footwear, and sports accessories management application.
+
+WireFrame:
+Creating wireframes is an essential step in the design phase of the application development process. Below are the wireframes for the main screens and functionalities for Admin, Staff, and Customer roles in the sportswear, footwear, and sports accessories management application.
+
+### Wireframes
+
+#### 1. **Login Page**
+   - Fields: Username, Password
+   - Buttons: Login, Forgot Password, Register
+
+```
+-------------------------------------
+|          Sports Management        |
+-------------------------------------
+| Username: [_____________________] |
+| Password: [_____________________] |
+|                                   |
+| [ Login ]       [ Forgot Password ]|
+|                                   |
+| [ Register ]                      |
+-------------------------------------
+```
+
+#### 2. **Admin Dashboard**
+   - Navigation: Shops, Staff, Customers, Product Categories, Products, Sales, Purchases, Invoices, Reports, Profile, Logout
+   - Main Area: Overview of key metrics (Total Sales, Total Purchases, Number of Shops, etc.)
+
+```
+-------------------------------------
+| Sports Management - Admin Dashboard |
+-------------------------------------
+| Home | Shops | Staff | Customers  | 
+| Product Categories | Products     | 
+| Sales | Purchases | Invoices      |
+| Reports | Profile | Logout        |
+-------------------------------------
+|       Key Metrics                  |
+|  -------------------------------   |
+| | Total Sales:          $xxxxx |   |
+| | Total Purchases:      $xxxxx |   |
+| | Number of Shops:      xx     |   |
+| | Number of Products:   xxx    |   |
+|  -------------------------------   |
+-------------------------------------
+```
+
+#### 3. **Shop Management (Admin)**
+   - Table: List of Shops (Name, Location, Manager)
+   - Buttons: Add Shop, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Shops         |
+-------------------------------------
+| [ Add Shop ]                      |
+|-----------------------------------|
+| Shop Name  | Location  | Manager  |
+|-----------------------------------|
+| Shop 1     | Location 1| Manager 1|
+| Shop 2     | Location 2| Manager 2|
+| ...                                |
+|-----------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 4. **Staff Management (Admin)**
+   - Table: List of Staff (Name, Role, Email)
+   - Buttons: Add Staff, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Staff         |
+-------------------------------------
+| [ Add Staff ]                     |
+|-----------------------------------|
+| Staff Name | Role  | Email        |
+|-----------------------------------|
+| Staff 1    | Role 1| email1@...   |
+| Staff 2    | Role 2| email2@...   |
+| ...                                |
+|-----------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 5. **Customer Management (Admin/Staff)**
+   - Table: List of Customers (Name, Email, Phone)
+   - Buttons: Add Customer, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Customers     |
+-------------------------------------
+| [ Add Customer ]                  |
+|-----------------------------------|
+| Customer Name | Email   | Phone   |
+|-----------------------------------|
+| Customer 1    | email1@ | 12345678|
+| Customer 2    | email2@ | 87654321|
+| ...                                |
+|-----------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 6. **Product Categories Management (Admin/Staff)**
+   - Table: List of Categories (Name, Description)
+   - Buttons: Add Category, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Categories    |
+-------------------------------------
+| [ Add Category ]                  |
+|-----------------------------------|
+| Category Name | Description       |
+|-----------------------------------|
+| Category 1    | Desc 1            |
+| Category 2    | Desc 2            |
+| ...                                |
+|-----------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 7. **Products Management (Admin/Staff)**
+   - Table: List of Products (Name, Category, Price, Stock)
+   - Buttons: Add Product, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Products      |
+-------------------------------------
+| [ Add Product ]                   |
+|-----------------------------------|
+| Product Name | Category | Price   | Stock |
+|-------------------------------------------|
+| Product 1    | Cat 1    | $xxx    | xx    |
+| Product 2    | Cat 2    | $yyy    | yy    |
+| ...                                |
+|-------------------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 8. **Sales Management (Admin/Staff/Customer)**
+   - Table: List of Sales (Product, Quantity, Price, Date)
+   - Buttons: Add Sale, Edit, Delete (for Admin/Staff), Create Sale (for Customer)
+
+```
+-------------------------------------
+| Sports Management - Sales         |
+-------------------------------------
+| [ Add Sale ]                      | [ Create Sale ] (Customer)
+|-----------------------------------|
+| Product   | Quantity | Price | Date |
+|-------------------------------------|
+| Product 1 | 10       | $xxx  | xx/xx|
+| Product 2 | 5        | $yyy  | yy/yy|
+| ...                                |
+|-------------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 9. **Purchases Management (Admin/Staff)**
+   - Table: List of Purchases (Product, Quantity, Price, Date)
+   - Buttons: Add Purchase, Edit, Delete
+
+```
+-------------------------------------
+| Sports Management - Purchases     |
+-------------------------------------
+| [ Add Purchase ]                  |
+|-----------------------------------|
+| Product   | Quantity | Price | Date |
+|-------------------------------------|
+| Product 1 | 100      | $xxxx | xx/xx|
+| Product 2 | 50       | $yyyy | yy/yy|
+| ...                                |
+|-------------------------------------|
+| [ Edit ] [ Delete ]               |
+-------------------------------------
+```
+
+#### 10. **Invoices Management (Admin/Staff/Customer)**
+   - Table: List of Invoices (Invoice Number, Customer, Date, Total Amount)
+   - Buttons: Add Invoice, Edit, Delete (for Admin/Staff), View Invoice (for Customer)
+
+```
+-------------------------------------
+| Sports Management - Invoices      |
+-------------------------------------
+| [ Add Invoice ]                   |
+|-----------------------------------|
+| Invoice #  | Customer   | Date | Total  |
+|------------------------------------------|
+| 12345      | Customer 1 | xx/xx| $xxx   |
+| 12346      | Customer 2 | yy/yy| $yyy   |
+| ...                                |
+|------------------------------------------|
+| [ Edit ] [ Delete ]     [ View ]        |
+-------------------------------------
+```
+
+#### 11. **Reports (Admin/Staff)**
+   - Options: Generate Sales Report, Generate Purchase Report, Generate Inventory Report
+   - Date Range Selection
+   - Generate Report Button
+
+```
+-------------------------------------
+| Sports Management - Reports       |
+-------------------------------------
+| [Generate Sales Report]           |
+| [Generate Purchase Report]        |
+| [Generate Inventory Report]       |
+|-----------------------------------|
+| Select Date Range:                |
+| From: [xx/xx/xxxx] To: [yy/yy/yyyy]|
+|-----------------------------------|
+| [ Generate Report ]               |
+-------------------------------------
+```
+
+#### 12. **Profile Management (Admin/Staff/Customer)**
+   - Fields: Name, Email, Phone, Address
+   - Buttons: Update Profile, Change Password
+
+```
+-------------------------------------
+| Sports Management - Profile       |
+-------------------------------------
+| Name:    [_____________________]  |
+| Email:   [_____________________]  |
+| Phone:   [_____________________]  |
+| Address: [_____________________]  |
+|                                   |
+| [ Update Profile ] [ Change Password ] |
+-------------------------------------
+```
+
+These wireframes provide a visual guide for the application's main screens and functionalities, ensuring a consistent and user-friendly interface for all roles. The detailed design can be further refined based on user feedback and additional requirements during the development process.
