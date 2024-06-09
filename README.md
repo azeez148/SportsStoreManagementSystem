@@ -439,3 +439,249 @@ Creating wireframes is an essential step in the design phase of the application 
 ```
 
 These wireframes provide a visual guide for the application's main screens and functionalities, ensuring a consistent and user-friendly interface for all roles. The detailed design can be further refined based on user feedback and additional requirements during the development process.
+
+
+Database Schema Design:
+
+Designing the database schema is crucial to ensure data integrity, efficiency, and scalability. Below is the database schema for the sportswear, footwear, and sports accessories management application. The schema includes tables for users, shops, product categories, products, sales, purchases, invoices, and reports.
+
+### Database Schema
+
+#### 1. **Users Table**
+   - **Columns:**
+     - `user_id` (Primary Key)
+     - `username` (Unique)
+     - `password`
+     - `email` (Unique)
+     - `phone`
+     - `address`
+     - `role` (ENUM: 'Admin', 'Staff', 'Customer')
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    address TEXT,
+    role ENUM('Admin', 'Staff', 'Customer') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+#### 2. **Shops Table**
+   - **Columns:**
+     - `shop_id` (Primary Key)
+     - `name`
+     - `location`
+     - `manager_id` (Foreign Key references `users.user_id`)
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE shops (
+    shop_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    location TEXT NOT NULL,
+    manager_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (manager_id) REFERENCES users(user_id)
+);
+```
+
+#### 3. **Product Categories Table**
+   - **Columns:**
+     - `category_id` (Primary Key)
+     - `name`
+     - `description`
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE product_categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+#### 4. **Products Table**
+   - **Columns:**
+     - `product_id` (Primary Key)
+     - `name`
+     - `category_id` (Foreign Key references `product_categories.category_id`)
+     - `price`
+     - `stock`
+     - `shop_id` (Foreign Key references `shops.shop_id`)
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    category_id INT,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL,
+    shop_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES product_categories(category_id),
+    FOREIGN KEY (shop_id) REFERENCES shops(shop_id)
+);
+```
+
+#### 5. **Sales Table**
+   - **Columns:**
+     - `sale_id` (Primary Key)
+     - `product_id` (Foreign Key references `products.product_id`)
+     - `customer_id` (Foreign Key references `users.user_id`)
+     - `quantity`
+     - `total_price`
+     - `sale_date`
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    product_id INT,
+    customer_id INT,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    sale_date TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (customer_id) REFERENCES users(user_id)
+);
+```
+
+#### 6. **Purchases Table**
+   - **Columns:**
+     - `purchase_id` (Primary Key)
+     - `product_id` (Foreign Key references `products.product_id`)
+     - `quantity`
+     - `total_price`
+     - `purchase_date`
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE purchases (
+    purchase_id SERIAL PRIMARY KEY,
+    product_id INT,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    purchase_date TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+```
+
+#### 7. **Invoices Table**
+   - **Columns:**
+     - `invoice_id` (Primary Key)
+     - `sale_id` (Foreign Key references `sales.sale_id`)
+     - `customer_id` (Foreign Key references `users.user_id`)
+     - `total_amount`
+     - `invoice_date`
+     - `created_at`
+     - `updated_at`
+
+```sql
+CREATE TABLE invoices (
+    invoice_id SERIAL PRIMARY KEY,
+    sale_id INT,
+    customer_id INT,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    invoice_date TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (sale_id) REFERENCES sales(sale_id),
+    FOREIGN KEY (customer_id) REFERENCES users(user_id)
+);
+```
+
+#### 8. **Reports Table**
+   - **Columns:**
+     - `report_id` (Primary Key)
+     - `report_type` (ENUM: 'Sales', 'Purchases', 'Inventory')
+     - `generated_by` (Foreign Key references `users.user_id`)
+     - `date_range_start`
+     - `date_range_end`
+     - `created_at`
+
+```sql
+CREATE TABLE reports (
+    report_id SERIAL PRIMARY KEY,
+    report_type ENUM('Sales', 'Purchases', 'Inventory') NOT NULL,
+    generated_by INT,
+    date_range_start TIMESTAMP NOT NULL,
+    date_range_end TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (generated_by) REFERENCES users(user_id)
+);
+```
+
+### Entity-Relationship Diagram (ERD)
+
+```plaintext
++------------+       +-------------+        +--------------------+      +---------------+
+|    users   |       |    shops    |        | product_categories |      |    products   |
++------------+       +-------------+        +--------------------+      +---------------+
+| user_id PK |<----->| shop_id PK  |<-----+ | category_id PK     |<--+  | product_id PK |
+| username   |       | name        |      | | name               |   |  | name          |
+| password   |       | location    |      | | description        |   |  | category_id FK|
+| email      |       | manager_id FK|      | +--------------------+   |  | price         |
+| phone      |       | created_at  |      |                           |  | stock         |
+| address    |       | updated_at  |      |                           |  | shop_id FK    |
+| role       |       +-------------+      |                           |  | created_at    |
+| created_at |                               |                           |  | updated_at    |
+| updated_at |                               |                           +---------------+
++------------+                               |                            
+                                            |        +-------------+
++--------------+   +-----------+             |        |  purchases |
+|    sales     |   | invoices  |             |        +-------------+
++--------------+   +-----------+             |        | purchase_id PK|
+| sale_id PK   |<->| invoice_id |             |        | product_id FK |
+| product_id FK|   | sale_id FK |             |        | quantity      |
+| customer_id FK|  | customer_id FK|             |        | total_price  |
+| quantity     |   | total_amount|             |        | purchase_date |
+| total_price  |   | invoice_date|             |        | created_at    |
+| sale_date    |   | created_at |             |        | updated_at    |
+| created_at   |   | updated_at |             |        +-------------+
+| updated_at   |   +-----------+             |
++--------------+                             |
+                                            | 
+                                            +------------------+
+                                            |      reports     |
+                                            +------------------+
+                                            | report_id PK     |
+                                            | report_type      |
+                                            | generated_by FK  |
+                                            | date_range_start |
+                                            | date_range_end   |
+                                            | created_at       |
+                                            +------------------+
+```
+
+### Summary
+- **Users Table:** Manages user information including roles (Admin, Staff, Customer).
+- **Shops Table:** Manages shop details and links to shop managers.
+- **Product Categories Table:** Manages categories for products.
+- **Products Table:** Manages products linked to categories and shops.
+- **Sales Table:** Manages sales records linked to products and customers.
+- **Purchases Table:** Manages purchase records linked to products.
+- **Invoices Table:** Manages invoices linked to sales and customers.
+- **Reports Table:** Manages generated reports and their details.
+
+This schema ensures that all necessary relationships and data integrity constraints are maintained, facilitating efficient and secure data operations for the application.
