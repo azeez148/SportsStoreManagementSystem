@@ -685,3 +685,637 @@ CREATE TABLE reports (
 - **Reports Table:** Manages generated reports and their details.
 
 This schema ensures that all necessary relationships and data integrity constraints are maintained, facilitating efficient and secure data operations for the application.
+
+ 
+
+### API Endpoints and Data Contracts
+
+Below are the API endpoints and data contracts for the sportswear, footwear, and sports accessories management application. These endpoints cover the functionalities for Admin, Staff, and Customers.
+
+### Base URL
+```
+/api/v1
+```
+
+### Authentication Endpoints
+
+1. **Login**
+   - **Endpoint:** `POST /auth/login`
+   - **Request:**
+     ```json
+     {
+       "username": "string",
+       "password": "string"
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "token": "string",
+       "user": {
+         "user_id": 1,
+         "username": "string",
+         "email": "string",
+         "role": "string"
+       }
+     }
+     ```
+
+2. **Register**
+   - **Endpoint:** `POST /auth/register`
+   - **Request:**
+     ```json
+     {
+       "username": "string",
+       "password": "string",
+       "email": "string",
+       "phone": "string",
+       "address": "string",
+       "role": "string"
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "user_id": 1,
+       "username": "string",
+       "email": "string",
+       "role": "string"
+     }
+     ```
+
+3. **Reset Password**
+   - **Endpoint:** `POST /auth/reset-password`
+   - **Request:**
+     ```json
+     {
+       "email": "string"
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "message": "Password reset link sent to email."
+     }
+     ```
+
+### User Endpoints
+
+4. **Get User Profile**
+   - **Endpoint:** `GET /users/{user_id}`
+   - **Response:**
+     ```json
+     {
+       "user_id": 1,
+       "username": "string",
+       "email": "string",
+       "phone": "string",
+       "address": "string",
+       "role": "string",
+       "created_at": "timestamp",
+       "updated_at": "timestamp"
+     }
+     ```
+
+5. **Update User Profile**
+   - **Endpoint:** `PUT /users/{user_id}`
+   - **Request:**
+     ```json
+     {
+       "email": "string",
+       "phone": "string",
+       "address": "string"
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "user_id": 1,
+       "username": "string",
+       "email": "string",
+       "phone": "string",
+       "address": "string",
+       "role": "string",
+       "created_at": "timestamp",
+       "updated_at": "timestamp"
+     }
+     ```
+
+### Shop Endpoints
+
+6. **Create Shop**
+   - **Endpoint:** `POST /shops`
+   - **Request:**
+     ```json
+     {
+       "name": "string",
+       "location": "string",
+       "manager_id": 1
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "shop_id": 1,
+       "name": "string",
+       "location": "string",
+       "manager_id": 1,
+       "created_at": "timestamp",
+       "updated_at": "timestamp"
+     }
+     ```
+
+7. **Get Shops**
+   - **Endpoint:** `GET /shops`
+   - **Response:**
+     ```json
+     [
+       {
+         "shop_id": 1,
+         "name": "string",
+         "location": "string",
+         "manager_id": 1,
+         "created_at": "timestamp",
+         "updated_at": "timestamp"
+       },
+       ...
+     ]
+     ```
+
+8. **Update Shop**
+   - **Endpoint:** `PUT /shops/{shop_id}`
+   - **Request:**
+     ```json
+     {
+       "name": "string",
+       "location": "string",
+       "manager_id": 1
+     }
+     ```
+   - **Response:**
+     ```json
+     {
+       "shop_id": 1,
+       "name": "string",
+       "location": "string",
+       "manager_id": 1,
+       "created_at": "timestamp",
+       "updated_at": "timestamp"
+     }
+     ```
+
+9. **Delete Shop**
+   - **Endpoint:** `DELETE /shops/{shop_id}`
+   - **Response:**
+     ```json
+     {
+       "message": "Shop deleted successfully."
+     }
+     ```
+
+### Product Categories Endpoints
+
+10. **Create Product Category**
+    - **Endpoint:** `POST /categories`
+    - **Request:**
+      ```json
+      {
+        "name": "string",
+        "description": "string"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "category_id": 1,
+        "name": "string",
+        "description": "string",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+11. **Get Product Categories**
+    - **Endpoint:** `GET /categories`
+    - **Response:**
+      ```json
+      [
+        {
+          "category_id": 1,
+          "name": "string",
+          "description": "string",
+          "created_at": "timestamp",
+          "updated_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+12. **Update Product Category**
+    - **Endpoint:** `PUT /categories/{category_id}`
+    - **Request:**
+      ```json
+      {
+        "name": "string",
+        "description": "string"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "category_id": 1,
+        "name": "string",
+        "description": "string",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+13. **Delete Product Category**
+    - **Endpoint:** `DELETE /categories/{category_id}`
+    - **Response:**
+      ```json
+      {
+        "message": "Product category deleted successfully."
+      }
+      ```
+
+### Product Endpoints
+
+14. **Create Product**
+    - **Endpoint:** `POST /products`
+    - **Request:**
+      ```json
+      {
+        "name": "string",
+        "category_id": 1,
+        "price": 0.0,
+        "stock": 0,
+        "shop_id": 1
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "product_id": 1,
+        "name": "string",
+        "category_id": 1,
+        "price": 0.0,
+        "stock": 0,
+        "shop_id": 1,
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+15. **Get Products**
+    - **Endpoint:** `GET /products`
+    - **Response:**
+      ```json
+      [
+        {
+          "product_id": 1,
+          "name": "string",
+          "category_id": 1,
+          "price": 0.0,
+          "stock": 0,
+          "shop_id": 1,
+          "created_at": "timestamp",
+          "updated_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+16. **Update Product**
+    - **Endpoint:** `PUT /products/{product_id}`
+    - **Request:**
+      ```json
+      {
+        "name": "string",
+        "category_id": 1,
+        "price": 0.0,
+        "stock": 0,
+        "shop_id": 1
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "product_id": 1,
+        "name": "string",
+        "category_id": 1,
+        "price": 0.0,
+        "stock": 0,
+        "shop_id": 1,
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+17. **Delete Product**
+    - **Endpoint:** `DELETE /products/{product_id}`
+    - **Response:**
+      ```json
+      {
+        "message": "Product deleted successfully."
+      }
+      ```
+
+### Sales Endpoints
+
+18. **Create Sale**
+    - **Endpoint:** `POST /sales`
+    - **Request:**
+      ```json
+      {
+        "product_id": 1,
+        "customer_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "sale_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "sale_id": 1,
+        "product_id": 1,
+        "customer_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "sale_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+19. **Get Sales**
+    - **Endpoint:** `GET /sales`
+    - **Response:**
+      ```json
+      [
+        {
+          "sale_id": 1,
+          "product_id": 1,
+          "customer_id": 1,
+          "quantity": 0,
+          "total_price": 0.0,
+          "sale_date": "timestamp",
+          "created_at": "timestamp",
+          "updated_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+20. **Update Sale**
+    - **Endpoint:** `PUT /sales/{sale_id}`
+    - **Request:**
+     
+
+ ```json
+      {
+        "product_id": 1,
+        "customer_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "sale_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "sale_id": 1,
+        "product_id": 1,
+        "customer_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "sale_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+21. **Delete Sale**
+    - **Endpoint:** `DELETE /sales/{sale_id}`
+    - **Response:**
+      ```json
+      {
+        "message": "Sale deleted successfully."
+      }
+      ```
+
+### Purchases Endpoints
+
+22. **Create Purchase**
+    - **Endpoint:** `POST /purchases`
+    - **Request:**
+      ```json
+      {
+        "product_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "purchase_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "purchase_id": 1,
+        "product_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "purchase_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+23. **Get Purchases**
+    - **Endpoint:** `GET /purchases`
+    - **Response:**
+      ```json
+      [
+        {
+          "purchase_id": 1,
+          "product_id": 1,
+          "quantity": 0,
+          "total_price": 0.0,
+          "purchase_date": "timestamp",
+          "created_at": "timestamp",
+          "updated_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+24. **Update Purchase**
+    - **Endpoint:** `PUT /purchases/{purchase_id}`
+    - **Request:**
+      ```json
+      {
+        "product_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "purchase_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "purchase_id": 1,
+        "product_id": 1,
+        "quantity": 0,
+        "total_price": 0.0,
+        "purchase_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+25. **Delete Purchase**
+    - **Endpoint:** `DELETE /purchases/{purchase_id}`
+    - **Response:**
+      ```json
+      {
+        "message": "Purchase deleted successfully."
+      }
+      ```
+
+### Invoices Endpoints
+
+26. **Create Invoice**
+    - **Endpoint:** `POST /invoices`
+    - **Request:**
+      ```json
+      {
+        "sale_id": 1,
+        "customer_id": 1,
+        "total_amount": 0.0,
+        "invoice_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "invoice_id": 1,
+        "sale_id": 1,
+        "customer_id": 1,
+        "total_amount": 0.0,
+        "invoice_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+27. **Get Invoices**
+    - **Endpoint:** `GET /invoices`
+    - **Response:**
+      ```json
+      [
+        {
+          "invoice_id": 1,
+          "sale_id": 1,
+          "customer_id": 1,
+          "total_amount": 0.0,
+          "invoice_date": "timestamp",
+          "created_at": "timestamp",
+          "updated_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+28. **Update Invoice**
+    - **Endpoint:** `PUT /invoices/{invoice_id}`
+    - **Request:**
+      ```json
+      {
+        "sale_id": 1,
+        "customer_id": 1,
+        "total_amount": 0.0,
+        "invoice_date": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "invoice_id": 1,
+        "sale_id": 1,
+        "customer_id": 1,
+        "total_amount": 0.0,
+        "invoice_date": "timestamp",
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+      ```
+
+29. **Delete Invoice**
+    - **Endpoint:** `DELETE /invoices/{invoice_id}`
+    - **Response:**
+      ```json
+      {
+        "message": "Invoice deleted successfully."
+      }
+      ```
+
+### Reports Endpoints
+
+30. **Generate Report**
+    - **Endpoint:** `POST /reports`
+    - **Request:**
+      ```json
+      {
+        "report_type": "string",
+        "generated_by": 1,
+        "date_range_start": "timestamp",
+        "date_range_end": "timestamp"
+      }
+      ```
+    - **Response:**
+      ```json
+      {
+        "report_id": 1,
+        "report_type": "string",
+        "generated_by": 1,
+        "date_range_start": "timestamp",
+        "date_range_end": "timestamp",
+        "created_at": "timestamp"
+      }
+      ```
+
+31. **Get Reports**
+    - **Endpoint:** `GET /reports`
+    - **Response:**
+      ```json
+      [
+        {
+          "report_id": 1,
+          "report_type": "string",
+          "generated_by": 1,
+          "date_range_start": "timestamp",
+          "date_range_end": "timestamp",
+          "created_at": "timestamp"
+        },
+        ...
+      ]
+      ```
+
+32. **Get Report by ID**
+    - **Endpoint:** `GET /reports/{report_id}`
+    - **Response:**
+      ```json
+      {
+        "report_id": 1,
+        "report_type": "string",
+        "generated_by": 1,
+        "date_range_start": "timestamp",
+        "date_range_end": "timestamp",
+        "created_at": "timestamp"
+      }
+      ```
+
+### Summary
+
+This API design provides comprehensive CRUD operations for shops, users, product categories, products, sales, purchases, invoices, and reports, aligning with the defined functionalities for Admins, Staff, and Customers. Each endpoint is designed to facilitate efficient and secure operations within the application, ensuring data integrity and user access control.
